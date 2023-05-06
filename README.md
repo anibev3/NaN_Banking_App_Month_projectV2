@@ -14,3 +14,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+Figma link
+https://www.figma.com/file/ZHloJgwnX8Ul5u9gtVyiHU/NaN-Banking-App-(Month-project)?type=design&node-id=0%3A1&t=P05L8O0GML9GnS7D-1
