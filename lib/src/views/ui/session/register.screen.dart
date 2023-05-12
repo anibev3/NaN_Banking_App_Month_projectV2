@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
+import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xFF21899C),
+      backgroundColor: Cst.kPrimary2Color,
       body: SafeArea(
         child: SizedBox(
           height: size.height,
@@ -37,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
 
-              //right side background design. I use a svg image here
+              // right side background design. I use a svg image here
               Positioned(
                 right: -52,
                 top: 45.0,
@@ -530,7 +531,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Text(
           'Se connecter',
           style: GoogleFonts.nunito(
-            color: const Color(0xFFF9CA58),
+            color: Cst.kprimary3Color,
             fontWeight: FontWeight.w600,
             fontSize: 16.0,
           ),

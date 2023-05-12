@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
+import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -383,7 +384,7 @@ class _LoginScreenState extends State<LoginScreen> {
         )),
         Expanded(
           child: Text(
-            'Ou se connecter avec',
+            'Ou continuer avec',
             style: GoogleFonts.inter(
               fontSize: 12.0,
               color: Colors.white,
@@ -502,7 +503,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Text(
           "S'inscrire",
           style: GoogleFonts.nunito(
-            color: const Color(0xFFF9CA58),
+            color: Cst.kprimary3Color,
             fontWeight: FontWeight.w600,
             fontSize: 16.0,
           ),
