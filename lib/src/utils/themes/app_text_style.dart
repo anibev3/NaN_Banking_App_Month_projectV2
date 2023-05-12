@@ -41,7 +41,7 @@ class TextCss {
       color: Colors.black, fontSize: Cst.klg, fontWeight: FontWeight.normal);
 
   static TextStyle hStyle(double taille) => GoogleFonts.dmSans(
-      color: Colors.black, fontSize: taille, fontWeight: FontWeight.bold);
+      color: Colors.white, fontSize: taille, fontWeight: FontWeight.bold);
 
   static TextStyle fnh3Style(Color cl) => GoogleFonts.dmSans(
       color: cl, fontSize: Cst.klg, fontWeight: FontWeight.w600);
