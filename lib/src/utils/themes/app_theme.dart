@@ -32,3 +32,8 @@ final ThemeData appThemeData = ThemeData(
     onSurface: Color(0xFF54B435),
   ),
 );
+
+List<Color> gradientColor = [
+  Color(0xff185ADB),
+  Color(0xff113E98),
+];
