@@ -63,7 +63,7 @@ class _EntryPointState extends State<EntryPoint>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor2,
+      // backgroundColor: backgroundColor2,
       resizeToAvoidBottomInset: false,
       extendBody: true,
       body: Stack(
@@ -71,6 +71,7 @@ class _EntryPointState extends State<EntryPoint>
         children: [
           // It shows nothing
           // because now it's under the HomeScreen
+
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
             curve: Curves.fastOutSlowIn,
@@ -79,6 +80,7 @@ class _EntryPointState extends State<EntryPoint>
             height: MediaQuery.of(context).size.height,
             child: const SideMenu(),
           ),
+
           Transform(
             alignment: Alignment.center,
             transform: Matrix4.identity()
