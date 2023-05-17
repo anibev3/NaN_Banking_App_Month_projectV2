@@ -67,9 +67,8 @@ class RecentTransaction extends StatelessWidget {
                 style: const TextStyle(),
               ),
               trailing: Text(
-                e.price >= 0
-                    ? '${e.price.toString()} FCFA'
-                    : '${e.price.toString()} FCFA',
+                e.price >= 0 ? "" : '${e.price.toString()} FCFA',
+                // : '${e.price.toString()} FCFA',
                 style: TextStyle(
                   color: e.price >= 0 ? Colors.green : Colors.red,
                 ),
