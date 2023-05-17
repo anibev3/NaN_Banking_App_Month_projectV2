@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 import 'package:nan_banking_app_mai_project/src/views/widgets/lib/models/rive_asset.dart';
 import 'package:rive/rive.dart';
 
@@ -38,8 +39,8 @@ class SideMenuTile extends StatelessWidget {
               width: isActive ? 288 : 0,
               left: 0,
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFF6792FF),
+                decoration: BoxDecoration(
+                  color: Cst.kPrimary2Color,
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
               ),
@@ -47,8 +48,8 @@ class SideMenuTile extends StatelessWidget {
             ListTile(
               onTap: press,
               leading: SizedBox(
-                height: 34,
-                width: 34,
+                height: 32,
+                width: 32,
                 child: RiveAnimation.asset(
                   menu.src,
                   artboard: menu.artboard,
@@ -57,7 +58,10 @@ class SideMenuTile extends StatelessWidget {
               ),
               title: Text(
                 menu.title,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
               ),
             ),
           ],

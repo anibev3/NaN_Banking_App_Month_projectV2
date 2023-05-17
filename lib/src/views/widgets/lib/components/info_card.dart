@@ -15,10 +15,13 @@ class InfoCard extends StatelessWidget {
     return ListTile(
       leading: const CircleAvatar(
         backgroundColor: Colors.white24,
-        child: Icon(
-          CupertinoIcons.person,
-          color: Colors.white,
+        backgroundImage: AssetImage(
+          "assets/img/profil.jpeg",
         ),
+        // child: Icon(
+        //   CupertinoIcons.person,
+        //   color: Colors.white,
+        // ),
       ),
       title: Text(
         name,

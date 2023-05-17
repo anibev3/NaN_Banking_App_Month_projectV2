@@ -11,19 +11,32 @@ abstract class Routes {
   // ignore: constant_identifier_names
   static const HOME = '/home';
 
-  // POSTCASTS
+  // EPARGNE
   // ignore: constant_identifier_names
-  // static const POSTCASTS = '/postcasts';
+  static const EPARGNE = '/epargne';
 
-  // PROGRAMME
+  // MESSAGERIE
   // ignore: constant_identifier_names
-  // static const PROGRAMME = '/programme';
+  static const MESSAGERIE = '/messagerie';
 
-  // PROFIL
+  // PROFILE
   // ignore: constant_identifier_names
-  // static const PROFILE = '/profile';
+  static const PROFILE = '/profile';
 
-  // PROFIL
+  // TRANSFERT
   // ignore: constant_identifier_names
-  // static const PARAMETRE = '/parametre';
+  static const TRANSFERT = '/tranfert';
+
+  // STATISTIC
+  // ignore: constant_identifier_names
+  static const STATISTIC = '/statistic';
+
+  // PARAMETRE
+  // ignore: constant_identifier_names
+  static const PARAMETRE = '/parametre';
+
+  // PARAMETRE
+  // ignore: constant_identifier_names
+  static const PAIEMENTSUCCESS = '/paiementsuccess';
+  static const PAIEMENTFAILED = '/paiementfailed';
 }

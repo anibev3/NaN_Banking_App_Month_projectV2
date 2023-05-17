@@ -8,7 +8,7 @@ class SoldeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 180,
+        height: 190,
         margin: const EdgeInsets.only(left: 20, right: 20, top: 8, bottom: 5),
         width: double.infinity,
         padding: const EdgeInsets.all(15),
@@ -19,12 +19,12 @@ class SoldeSection extends StatelessWidget {
             startAngle: 1.7,
             endAngle: 3,
             colors: <Color>[
-              Color(0xff148535),
-              Color(0xff148535),
-              Color(0xff0D6630),
-              Color(0xff0D6630),
-              Color(0xff148535),
-              Color(0xff148535),
+              Color(0xFF21899C),
+              Color(0xFF21899C),
+              Color.fromARGB(255, 6, 115, 134),
+              Color.fromARGB(255, 6, 115, 134),
+              Color(0xFF21899C),
+              Color(0xFF21899C),
             ],
             stops: <double>[0.0, 0.3, 0.3, 0.7, 0.7, 1.0],
           ),

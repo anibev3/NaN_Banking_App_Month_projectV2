@@ -48,11 +48,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var images = {
-    "balloning.png": "Balloning",
-    "hiking.png": "hiking",
-    "kayaking.png": "kayaking",
-    "snorkling.png": "snorkling",
-    "button-one.png": "button",
+    "balloning.png": "Tranfert",
+    "hiking.png": "Epagne",
+    "kayaking.png": "Mobile",
+    "snorkling.png": "Banque",
+    "button-one.png": "Coffre",
   };
 
   @override
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const SoldeSection(),
               SizedBox(
-                height: 503,
+                height: 496,
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [

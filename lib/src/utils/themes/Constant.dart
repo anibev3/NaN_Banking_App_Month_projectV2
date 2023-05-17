@@ -16,6 +16,7 @@ class Cst {
   static Color kNeutreColor = Color.fromARGB(255, 255, 255, 255);
   static Color kPrimary2Color = Color(0xFF21899C); /*0xFF21899C*/
   static Color kprimary3Color = Color(0xFFFE9879);
+  static Color kprimary4Color = Color.fromARGB(255, 241, 239, 239);
   //  -------------------------- SPACING ----------------------------------
 
   static const double k6xl = 32;
