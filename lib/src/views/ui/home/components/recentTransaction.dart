@@ -14,7 +14,7 @@ class RecentTransaction extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 15, right: 15),
       child: CupertinoButton(
           padding: EdgeInsets.zero,
           // color: ,

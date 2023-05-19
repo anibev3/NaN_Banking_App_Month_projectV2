@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -66,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const SoldeSection(),
               SizedBox(
-                height: 496,
+                height: size.height / 1.61,
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
