@@ -10,115 +10,45 @@ class StatMois extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30, top: 8),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 8),
       child: SizedBox(
-        height: 96,
-        child: ListView(scrollDirection: Axis.horizontal, children: [
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Row(
-                  children: const [
-                    Text(
-                      "Janvier",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4.45),
-                    child: Container(
-                      width: 162,
-                      height: 65,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Cst.kPrimary2Color,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            "Total recu",
-                            style: TextStyle(fontSize: 15, color: Colors.white),
-                          ),
-                          Text(
-                            "1000.00 Fcfa",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4.45),
-                    child: Container(
-                      width: 162,
-                      height: 65,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Cst.kPrimary2Color,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            "Total envoyé",
-                            style: TextStyle(fontSize: 15, color: Colors.white),
-                          ),
-                          Text(
-                            "000.00 Fcfa",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Row(
-                  children: const [
-                    Text(
-                      "Fevrier",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
+        height: 66,
+        child: Column(
+          children: [
+            // Padding(
+            //   padding: EdgeInsets.only(bottom: 10),
+            //   child: Row(
+            //     children: const [
+            //       Text(
+            //         "Janvier",
+            //         textAlign: TextAlign.start,
+            //         style: TextStyle(
+            //           fontSize: 14,
+            //           color: Colors.grey,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 4.45),
+                  child: Container(
                     width: 162,
                     height: 65,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Cst.kPrimary2Color,
+                      border: Border.all(
+                        color: Colors.green,
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                      // color: Cst.kPrimary2Color,
+                      // color: Colors.green,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,24 +56,35 @@ class StatMois extends StatelessWidget {
                       children: const [
                         Text(
                           "Total recu",
-                          style: TextStyle(fontSize: 15, color: Colors.white),
+                          style: TextStyle(fontSize: 15, color: Colors.green),
                         ),
                         Text(
                           "1000.00 Fcfa",
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                              color: Colors.green),
                         )
                       ],
                     ),
                   ),
-                  Container(
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 4.45,
+                  ),
+                  child: Container(
                     width: 162,
                     height: 65,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Cst.kPrimary2Color,
+                      // color: Cst.kPrimary2Color,
+                      // color: Colors.red,
+                      border: Border.all(
+                        color: Colors.red,
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,23 +92,27 @@ class StatMois extends StatelessWidget {
                       children: const [
                         Text(
                           "Total envoyé",
-                          style: TextStyle(fontSize: 15, color: Colors.white),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.red,
+                          ),
                         ),
                         Text(
                           "000.00 Fcfa",
                           style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
                         )
                       ],
                     ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ]),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

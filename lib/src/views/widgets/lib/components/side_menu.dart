@@ -21,9 +21,10 @@ class _SideMenuState extends State<SideMenu> {
   RiveAsset selectedMenu = sideMenus.first;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        width: MediaQuery.of(context).size.width,
+        width: size.width,
         height: double.infinity,
         // color: const Color(0xFF17203A),
         color: const Color(0xFF17203A),
@@ -36,11 +37,11 @@ class _SideMenuState extends State<SideMenu> {
               //   height: 40,
               // ),
               Container(
-                width: MediaQuery.of(context).size.width,
-                height: 125,
+                width: size.width,
+                height: size.height / 7.80, //124.32900432900433
                 decoration: BoxDecoration(
-                  color: Cst.kPrimary2Color,
-                ),
+                    // color: Cst.kPrimary2Color,
+                    ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: const InfoCard(
@@ -50,7 +51,11 @@ class _SideMenuState extends State<SideMenu> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
+                padding: const EdgeInsets.only(
+                  left: 24, //
+                  top: 32, //
+                  bottom: 16, //
+                ),
                 child: Text(
                   "Navigation".toUpperCase(),
                   style: Theme.of(context)
@@ -79,7 +84,11 @@ class _SideMenuState extends State<SideMenu> {
                       selectedMenu = menu;
                     });
                     print(
-                        "<___________________ ${menu.title} _____________________>");
+                        "<___________________ ${size.width} _____________________>");
+                    print(
+                        "<___________________ ${size.height} _____________________>");
+                    print(
+                        "<___________________ ${size.height * 0.006} _____________________>");
                     if (menu.title == "Service client") {
                       Get.toNamed(Routes.MESSAGERIE);
                     } else if (menu.title == "Accueil") {
@@ -193,8 +202,12 @@ class _SideMenuState extends State<SideMenu> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Cst.kprimary4Color,
-                  ),
+                      color: Cst.kprimary4Color,
+                      border: Border.all(
+                        color: Color(0xFF17203A),
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                      )),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

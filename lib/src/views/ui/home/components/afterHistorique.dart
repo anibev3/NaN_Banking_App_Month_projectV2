@@ -9,7 +9,7 @@ class AfterHistorique extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
       child: Column(
         children: [
           Row(
