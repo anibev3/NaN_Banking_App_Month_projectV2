@@ -4,17 +4,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/signIn_controlle.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key? key}) : super(key: key);
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
+  final signInController = Get.put(SignInController());
 
-class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,18 +91,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         //email and password TextField here
                         Expanded(
                           flex: 4,
-                          child: Column(
-                            children: [
-                              emailTextField(size),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              passwordTextField(size),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              buildRemember(size),
-                            ],
+                          child: Form(
+                            key: _formkey,
+                            child: Column(
+                              children: [
+                                emailTextField(size),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                passwordTextField(size),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                buildRemember(size),
+                              ],
+                            ),
                           ),
                         ),
 
@@ -227,6 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //email address textField
             Expanded(
               child: TextField(
+                controller: signInController.email,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.emailAddress,
@@ -286,6 +287,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //password textField
             Expanded(
               child: TextField(
+                controller: signInController.password,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.visiblePassword,
@@ -355,19 +357,31 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget signInButton(Size size) {
-    return Container(
-      alignment: Alignment.center,
-      height: size.height / 13,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: const Color(0xFFF56B3F),
-      ),
-      child: Text(
-        "Se connecter",
-        style: GoogleFonts.inter(
-          fontSize: 16.0,
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
+    return InkWell(
+      onTap: () {
+        // Get.toNamed(Routes.LOGINOTP);
+        print(
+            "signUpButton a été clické email: ${singUpController.email.text} password: ${singUpController.password.text}");
+        if (_formkey.currentState!.validate()) {
+          SignInController.instance.loginUser(
+              singUpController.email.text.trim(),
+              singUpController.password.text.trim());
+        }
+      },
+      child: Container(
+        alignment: Alignment.center,
+        height: size.height / 13,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: const Color(0xFFF56B3F),
+        ),
+        child: Text(
+          "Se connecter",
+          style: GoogleFonts.inter(
+            fontSize: 16.0,
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );

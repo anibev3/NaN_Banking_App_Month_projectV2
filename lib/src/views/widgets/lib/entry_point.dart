@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/home/home.screen.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/messagerie.dart';
@@ -133,7 +135,9 @@ class _EntryPointState extends State<EntryPoint>
           (whatIsSelect2 == true)
               ? GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    setState(() {
+                      Get.toNamed(Routes.HOME);
+                    });
                   },
                   child: SafeArea(
                     child: Padding(
