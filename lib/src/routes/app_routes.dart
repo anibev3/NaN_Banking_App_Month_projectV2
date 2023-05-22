@@ -6,6 +6,7 @@ abstract class Routes {
   static const LOGIN = '/login';
   static const REGISTER = '/register';
   static const LOGINOTP = '/login_otp';
+  static const INFOSUP = '/register_info_sup';
 
   // HOME
   // ignore: constant_identifier_names

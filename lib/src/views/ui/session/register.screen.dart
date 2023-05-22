@@ -4,17 +4,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/signUp_controller.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({Key? key}) : super(key: key);
 
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  final singUpController = Get.put(SignUpController());
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             children: [
                               logo(size.height / 8, size.height / 8),
                               const SizedBox(
-                                height: 16,
+                                height: 14.5,
                               ),
                               richText(30),
                             ],
@@ -94,22 +90,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         //email and password TextField here
                         Expanded(
                           flex: 5,
-                          child: Column(
-                            children: [
-                              emailTextField(size),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              passwordTextField(size),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              phoneTextField(size),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                            ],
+                          // child: ListView(
+                          // scrollDirection: Axis.vertical,
+                          child: Form(
+                            key: _formkey,
+                            child: Column(
+                              children: [
+                                emailTextField(size),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                passwordTextField(size),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                phoneTextField(size),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                              ],
+                            ),
                           ),
+                          // ),
                         ),
 
                         //sign in button & continue with text here
@@ -117,7 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           flex: 2,
                           child: Column(
                             children: [
-                              signInButton(size),
+                              signUpButton(size),
                               const SizedBox(
                                 height: 16,
                               ),
@@ -147,6 +149,67 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget emailTextField(Size size) {
+    return Container(
+      alignment: Alignment.center,
+      height: size.height / 12,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: const Color(0xFF4DA1B0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            //mail icon
+            const Icon(
+              Icons.mail_rounded,
+              color: Colors.white70,
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+
+            //divider svg
+            SvgPicture.string(
+              '<svg viewBox="99.0 332.0 1.0 15.5" ><path transform="translate(99.0, 332.0)" d="M 0 0 L 0 15.5" fill="none" fill-opacity="0.6" stroke="#ffffff" stroke-width="1" stroke-opacity="0.6" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
+              width: 1.0,
+              height: 15.5,
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+
+            //email address textField
+            Expanded(
+              child: TextField(
+                controller: singUpController.email,
+                maxLines: 1,
+                cursorColor: Colors.white70,
+                keyboardType: TextInputType.emailAddress,
+                style: GoogleFonts.inter(
+                  fontSize: 14.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+                decoration: InputDecoration(
+                  hintText: 'Entrer votre adresse enail',
+                  hintStyle: GoogleFonts.inter(
+                    fontSize: 14.0,
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -193,65 +256,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget emailTextField(Size size) {
-    return Container(
-      alignment: Alignment.center,
-      height: size.height / 12,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: const Color(0xFF4DA1B0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            //mail icon
-            const Icon(
-              Icons.mail_rounded,
-              color: Colors.white70,
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-
-            //divider svg
-            SvgPicture.string(
-              '<svg viewBox="99.0 332.0 1.0 15.5" ><path transform="translate(99.0, 332.0)" d="M 0 0 L 0 15.5" fill="none" fill-opacity="0.6" stroke="#ffffff" stroke-width="1" stroke-opacity="0.6" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-              width: 1.0,
-              height: 15.5,
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-
-            //email address textField
-            Expanded(
-              child: TextField(
-                maxLines: 1,
-                cursorColor: Colors.white70,
-                keyboardType: TextInputType.emailAddress,
-                style: GoogleFonts.inter(
-                  fontSize: 14.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-                decoration: InputDecoration(
-                    hintText: 'Entrer votre adresse enail',
-                    hintStyle: GoogleFonts.inter(
-                      fontSize: 14.0,
-                      color: Colors.white70,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    border: InputBorder.none),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget passwordTextField(Size size) {
     return Container(
       alignment: Alignment.center,
@@ -287,6 +291,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             //password textField
             Expanded(
               child: TextField(
+                controller: singUpController.password,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.visiblePassword,
@@ -352,6 +357,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             //password textField
             Expanded(
               child: TextField(
+                controller: singUpController.phoneNo,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.visiblePassword,
@@ -377,18 +383,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget signInButton(Size size) {
-    return Container(
-      alignment: Alignment.center,
-      height: size.height / 13,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: const Color(0xFFF56B3F),
-      ),
-      child: InkWell(
-        onTap: () {
-          Get.toNamed(Routes.LOGINOTP);
-        },
+  Widget signUpButton(Size size) {
+    return InkWell(
+      onTap: () {
+        // Get.toNamed(Routes.LOGINOTP);
+        print(
+            "signUpButton a été clické email: ${singUpController.email.text} password: ${singUpController.password.text}");
+        if (_formkey.currentState!.validate()) {
+          SignUpController.instance.registerUser(
+              singUpController.email.text.trim(),
+              singUpController.password.text.trim());
+        }
+      },
+      child: Container(
+        alignment: Alignment.center,
+        height: size.height / 13,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: const Color(0xFFF56B3F),
+        ),
         child: Text(
           "S'inscrire",
           style: GoogleFonts.inter(

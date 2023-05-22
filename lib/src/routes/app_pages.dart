@@ -6,6 +6,7 @@ import 'package:nan_banking_app_mai_project/src/views/ui/epargne/views/epargne.d
 import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/messagerie.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/parametre/views/parametre.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/profile/views/profile.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/InfoSup.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/login.screen.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/otp.screen.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/register.screen.dart';
@@ -29,11 +30,11 @@ class AppPages {
 
     GetPage(
       name: Routes.LOGIN,
-      page: () => const LoginScreen(),
+      page: () => LoginScreen(),
     ),
     GetPage(
       name: Routes.REGISTER,
-      page: () => const RegisterScreen(),
+      page: () => RegisterScreen(),
     ),
     // GetPage(
     //   name: Routes.IDENTIFICATION,
@@ -41,8 +42,8 @@ class AppPages {
     // ),
 
     // GetPage(
-    //   name: Routes.LOGIN,
-    //   page: () => LoginScreen(),
+    //   name: Routes.INFOSUP,
+    //   page: () => InfoSupScreen(user: user,),
     // ),
 
     GetPage(

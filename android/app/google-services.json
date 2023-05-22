@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "1046865640543",
+    "project_id": "welfare002-4eeb7",
+    "storage_bucket": "welfare002-4eeb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046865640543:android:8dac80f379fa2907e2efea",
+        "android_client_info": {
+          "package_name": "com.example.firebase_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046865640543-9nq0osuvca6j9c37445e36897vq7a935.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYVHWIbD9sHFxcf9U3s-WABS5kmDigdQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046865640543-9nq0osuvca6j9c37445e36897vq7a935.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1046865640543-73c3nc4h0kml2t40jkk0d86ri4t402sk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseProject"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046865640543:android:3fd740391b5e8019e2efea",
+        "android_client_info": {
+          "package_name": "com.example.nan_banking_app_mai_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046865640543-9nq0osuvca6j9c37445e36897vq7a935.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYVHWIbD9sHFxcf9U3s-WABS5kmDigdQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046865640543-9nq0osuvca6j9c37445e36897vq7a935.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1046865640543-73c3nc4h0kml2t40jkk0d86ri4t402sk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

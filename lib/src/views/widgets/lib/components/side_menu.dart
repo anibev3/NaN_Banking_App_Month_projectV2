@@ -25,7 +25,7 @@ class _SideMenuState extends State<SideMenu> {
     return Scaffold(
       body: Container(
         width: size.width,
-        height: double.infinity,
+        height: size.height,
         // color: const Color(0xFF17203A),
         color: const Color(0xFF17203A),
         child: SafeArea(

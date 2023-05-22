@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/auth_repository.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -41,9 +42,9 @@ class _ProfileState extends State<Profile> {
                 height: 45,
               ),
               Container(
-                padding: const EdgeInsets.only(top: 35, right: 20, left: 20),
+                padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
                 width: MediaQuery.of(context).size.width,
-                height: 390,
+                height: 250,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Cst.kprimary4Color,
@@ -162,12 +163,6 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Divider(
-                        height: 1,
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -246,25 +241,30 @@ class ProfilHeader extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              width: 150,
-              height: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black,
-                // image: DecorationImage(
-                //   image: AssetImage(
-                //     "assets/img/profil.jpeg",
-                //   ),
-                //   fit: BoxFit.cover,
-                // ),
-              ),
-              child: const Center(
-                child: Text(
-                  "Statut: free user",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
+            InkWell(
+              onTap: () {
+                AuthRepository.instance.logout();
+              },
+              child: Container(
+                width: 150,
+                height: 35,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.red,
+                  // image: DecorationImage(
+                  //   image: AssetImage(
+                  //     "assets/img/profil.jpeg",
+                  //   ),
+                  //   fit: BoxFit.cover,
+                  // ),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Se déconnecter",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
