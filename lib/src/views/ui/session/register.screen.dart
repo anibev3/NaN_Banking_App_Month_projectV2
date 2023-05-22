@@ -357,10 +357,10 @@ class RegisterScreen extends StatelessWidget {
             //password textField
             Expanded(
               child: TextField(
-                controller: singUpController.phoneNo,
+                controller: singUpController.contact,
                 maxLines: 1,
                 cursorColor: Colors.white70,
-                keyboardType: TextInputType.visiblePassword,
+                keyboardType: TextInputType.phone,
                 obscureText: true,
                 style: GoogleFonts.inter(
                   fontSize: 14.0,
@@ -391,8 +391,10 @@ class RegisterScreen extends StatelessWidget {
             "signUpButton a été clické email: ${singUpController.email.text} password: ${singUpController.password.text}");
         if (_formkey.currentState!.validate()) {
           SignUpController.instance.registerUser(
-              singUpController.email.text.trim(),
-              singUpController.password.text.trim());
+            singUpController.email.text.trim(),
+            singUpController.password.text.trim(),
+            singUpController.contact.text.trim(),
+          );
         }
       },
       child: Container(

@@ -17,11 +17,13 @@ class InfoSupScreen extends StatelessWidget {
   final UserTempon user;
   late String uid;
   late String userEmail;
+  late String contact_;
   late TextEditingController? emailController;
 
   InfoSupScreen({super.key, required this.user}) {
     uid = user.uid;
     userEmail = user.email;
+    contact_ = user.contact;
     emailController = TextEditingController(text: user.email ?? '');
   }
 
@@ -32,6 +34,7 @@ class InfoSupScreen extends StatelessWidget {
   final controllerNumID = TextEditingController();
   final controllerPhone = TextEditingController();
   final controllerMontant = TextEditingController();
+  final controllerSolde = TextEditingController();
   late DateTime selectDate;
   String nextId = "";
 
@@ -40,7 +43,7 @@ class InfoSupScreen extends StatelessWidget {
     print(
         '<__________________________________ infoSup ______________________________>');
     print(
-        '<________________________ ${uid} -- ${userEmail} _________________________>');
+        '<________________ ${uid} -- ${userEmail} __ ${contact_} __________________>');
     print(
         '<________________________________________________________________________>');
   }
@@ -443,73 +446,73 @@ class InfoSupScreen extends StatelessWidget {
                               SizedBox(
                                 height: 8,
                               ),
-                              Container(
-                                alignment: Alignment.center,
-                                height: size.height / 12,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: const Color(0xFF4DA1B0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      //mail icon
-                                      const Icon(
-                                        Icons.mail_rounded,
-                                        color: Colors.white70,
-                                      ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
+                              // Container(
+                              //   alignment: Alignment.center,
+                              //   height: size.height / 12,
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(10.0),
+                              //     color: const Color(0xFF4DA1B0),
+                              //   ),
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 16.0),
+                              //     child: Row(
+                              //       crossAxisAlignment:
+                              //           CrossAxisAlignment.center,
+                              //       children: <Widget>[
+                              //         //mail icon
+                              //         const Icon(
+                              //           Icons.mail_rounded,
+                              //           color: Colors.white70,
+                              //         ),
+                              //         const SizedBox(
+                              //           width: 16,
+                              //         ),
 
-                                      //divider svg
-                                      SvgPicture.string(
-                                        '<svg viewBox="99.0 332.0 1.0 15.5" ><path transform="translate(99.0, 332.0)" d="M 0 0 L 0 15.5" fill="none" fill-opacity="0.6" stroke="#ffffff" stroke-width="1" stroke-opacity="0.6" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                        width: 1.0,
-                                        height: 15.5,
-                                      ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
+                              //         //divider svg
+                              //         SvgPicture.string(
+                              //           '<svg viewBox="99.0 332.0 1.0 15.5" ><path transform="translate(99.0, 332.0)" d="M 0 0 L 0 15.5" fill="none" fill-opacity="0.6" stroke="#ffffff" stroke-width="1" stroke-opacity="0.6" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
+                              //           width: 1.0,
+                              //           height: 15.5,
+                              //         ),
+                              //         const SizedBox(
+                              //           width: 16,
+                              //         ),
 
-                                      //email address textField
-                                      Expanded(
-                                        child: TextFormField(
-                                          controller: controllerPhone,
-                                          maxLines: 1,
-                                          cursorColor: Colors.white70,
-                                          keyboardType: TextInputType.phone,
-                                          style: GoogleFonts.inter(
-                                            fontSize: 14.0,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          decoration: InputDecoration(
-                                            hintText: "Numéro de téléphone",
-                                            hintStyle: GoogleFonts.inter(
-                                              fontSize: 14.0,
-                                              color: Colors.white70,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            border: InputBorder.none,
-                                          ),
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Champ obligatoire !';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              //         //email address textField
+                              //         // Expanded(
+                              //         //   child: TextFormField(
+                              //         //     controller: controllerPhone,
+                              //         //     maxLines: 1,
+                              //         //     cursorColor: Colors.white70,
+                              //         //     keyboardType: TextInputType.phone,
+                              //         //     style: GoogleFonts.inter(
+                              //         //       fontSize: 14.0,
+                              //         //       color: Colors.white,
+                              //         //       fontWeight: FontWeight.w500,
+                              //         //     ),
+                              //         //     decoration: InputDecoration(
+                              //         //       hintText: "Numéro de téléphone",
+                              //         //       hintStyle: GoogleFonts.inter(
+                              //         //         fontSize: 14.0,
+                              //         //         color: Colors.white70,
+                              //         //         fontWeight: FontWeight.w500,
+                              //         //       ),
+                              //         //       border: InputBorder.none,
+                              //         //     ),
+                              //         //     validator: (value) {
+                              //         //       if (value == null ||
+                              //         //           value.isEmpty) {
+                              //         //         return 'Champ obligatoire !';
+                              //         //       }
+                              //         //       return null;
+                              //         //     },
+                              //         //   ),
+                              //         // ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
 
                               const SizedBox(
                                 height: 8,
@@ -585,18 +588,17 @@ class InfoSupScreen extends StatelessWidget {
                                       //email address textField
                                       Expanded(
                                         child: TextFormField(
-                                          controller: controllerMontant,
+                                          controller: controllerSolde,
                                           maxLines: 1,
                                           cursorColor: Colors.white70,
-                                          keyboardType:
-                                              TextInputType.emailAddress,
+                                          keyboardType: TextInputType.phone,
                                           style: GoogleFonts.inter(
                                             fontSize: 14.0,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w500,
                                           ),
                                           decoration: InputDecoration(
-                                            hintText: "Montant a l'ouverture",
+                                            hintText: "Solde",
                                             hintStyle: GoogleFonts.inter(
                                               fontSize: 14.0,
                                               color: Colors.white70,
@@ -638,8 +640,9 @@ class InfoSupScreen extends StatelessWidget {
                                         profession: controllerProfession.text,
                                         numPce: controllerNumID.text,
                                         numTel: controllerPhone.text,
-                                        solde: double.parse(
-                                            controllerMontant.text),
+                                        // solde:
+                                        //     double.parse(controllerSolde.text),
+                                        solde: 0,
                                         mail: userEmail,
                                         sexe: getSexe(genreCus),
                                         typeCpt: drpValue,
@@ -659,8 +662,9 @@ class InfoSupScreen extends StatelessWidget {
                                     // you'd often call a server or save the information in a database.
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                          backgroundColor: Colors.green,
-                                          content: Text('Compte créer')),
+                                        backgroundColor: Colors.green,
+                                        content: Text('Compte créer'),
+                                      ),
                                     );
                                   }
                                 },
@@ -698,14 +702,15 @@ class InfoSupScreen extends StatelessWidget {
 
   Future creatCustomer({required Customer customer}) async {
     final docUserLengthRef = FirebaseFirestore.instance.collection("Customers");
-    // QuerySnapshot snapshot = await docUserLengthRef.get();
-    // int docUserLength = snapshot.size;
-    // nextId = "NAW001" + (docUserLength++).toString().padLeft(3, '0');
+    QuerySnapshot snapshot = await docUserLengthRef.get();
+    int docUserLength = snapshot.size;
+    nextId = "NAW001" + (docUserLength++).toString().padLeft(3, '0');
     final docUser = FirebaseFirestore.instance
         .collection("Customers")
-        .doc(uid); //"NAW001"+"v"
+        .doc(nextId); //"NAW001"+"v"
     final json = {
-      "id": uid, // later
+      "id": docUser.id, // later
+      "signUpID": uid,
       "nom": customer.nom,
       "prenoms": customer.prenoms,
       "dateCreat": customer.dateCreat,
@@ -713,15 +718,16 @@ class InfoSupScreen extends StatelessWidget {
       "gestionnaire": customer.gestionnaire,
       "mail": customer.mail,
       "numPce": customer.numPce,
-      "numTel": customer.numTel,
+      "numTel": contact_,
       "profession": customer.profession,
       "sexe": customer.sexe,
-      "solde": customer.solde,
+      "solde": double.parse(customer.solde.toString()),
+
       "typeCpt": customer.typeCpt,
       "nbTransac": customer.nbTransac,
       "transactions": []
     };
-    // print(nextId);
+    print(nextId);
     await docUser.set(json);
 
     print(docUserLengthRef);
