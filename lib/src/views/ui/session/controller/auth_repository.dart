@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/home/home.screen.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/InfoSup.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/models/user_model.dart';
@@ -37,7 +38,7 @@ class AuthRepository extends GetxController {
   // }
 
   Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String contact_) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -47,29 +48,25 @@ class AuthRepository extends GetxController {
       dynamic userEmail = userCredential.user!.email;
 
       // Créer une instance de la classe User
-      UserTempon user = UserTempon(uid: uid, email: userEmail);
+      UserTempon user =
+          UserTempon(uid: uid, email: userEmail, contact: contact_);
       // Enregistrer les informations de l'utilisateur dans Firestore
 
       await FirebaseFirestore.instance
           .collection('UserCreated')
           .doc(uid)
-          .set({'userID': uid, 'userMail': userEmail});
+          .set({'userID': uid, 'userMail': userEmail, 'userNumb': contact_});
 
       firebaseUser.value != null
           ? Get.offAll(() => InfoSupScreen(user: user))
           : Get.to(() => const WelcomeScreen());
-      // print(
-      //     '<________________________________________________________________________>');
-      // print(
-      //     '<________________________ ${firebaseUser.value} _________________________>');
-      // print(
-      //     '<________________________________________________________________________>');
+
       print(
           '<_______________________________ Auth repo _______________________________>');
       print(
-          '<________________________ ${uid} -- ${userEmail} _________________________>');
+          '<________________________  -- ${contact_} _________________________>');
       print(
-          '<____________________________________  ____________________________________>');
+          '<________________________________________________________________________>');
     } on FirebaseAuthException catch (e) {
       // final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
       // print('FIREBASE AUTH EXCEPTION - ${ex.message}');
@@ -84,9 +81,9 @@ class AuthRepository extends GetxController {
   Future<void> loginWithEmailAndPasseword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      // firebaseUser.value != null
-      //     ? Get.offAll(() => const EntryPoint())
-      //     : Get.to(() => const WelcomeScreen());
+      firebaseUser.value != null
+          ? Get.offAll(() => const EntryPoint())
+          : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
       // final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
       // print('FIREBASE AUTH EXCEPTION - ${ex.message}');
@@ -99,5 +96,9 @@ class AuthRepository extends GetxController {
     }
   }
 
-  Future<void> logout() async => await _auth.signOut();
+  Future<void> logout() async {
+    final r = await _auth.signOut();
+    print("<___________ LogOut a ete cliqué ___________>");
+    Get.toNamed(Routes.INITIAL);
+  }
 }

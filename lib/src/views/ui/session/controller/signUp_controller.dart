@@ -10,9 +10,10 @@ class SignUpController extends GetxController {
 
   final email = TextEditingController();
   final password = TextEditingController();
-  final phoneNo = TextEditingController();
+  final contact = TextEditingController();
 
-  void registerUser(String email, String password) {
-    AuthRepository.instance.createUserWithEmailAndPassword(email, password);
+  void registerUser(String email, String password, String contact) {
+    AuthRepository.instance
+        .createUserWithEmailAndPassword(email, password, contact);
   }
 }
