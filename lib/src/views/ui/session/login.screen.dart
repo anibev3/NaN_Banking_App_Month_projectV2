@@ -3,15 +3,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
+import 'package:nan_banking_app_mai_project/src/utils/helpers/signIn_button.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/login_controller.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/signIn_controlle.dart';
+import 'package:nan_banking_app_mai_project/src/views/widgets/back_button_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
+  LoginController loginController = Get.put(LoginController());
 
-  final signInController = Get.put(SignInController());
+  // final signInController = Get.put(SignInController());
 
-  final _formkey = GlobalKey<FormState>();
+  // final _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -114,18 +119,46 @@ class LoginScreen extends StatelessWidget {
                           flex: 2,
                           child: Column(
                             children: [
-                              InkWell(
-                                  onTap: () => Get.toNamed(Routes.HOME),
-                                  child: signInButton(size)),
-                              const SizedBox(
+                              // signInButton(size),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Obx(
+                                () => SignInButton(
+                                  isGestureEnabled:
+                                      loginController.isGestureEnabled.value,
+                                  isloading:
+                                      loginController.issubmitLoading.value,
+                                  text: "Se connecter",
+                                  size: size,
+                                  onTap: () {
+                                    loginController.loginWithEmailAndPasseword(
+                                        loginController.email.text.trim(),
+                                        loginController.password.text.trim());
+
+                                    // else if (loginController.isOk.value ==
+                                    //     true) {
+                                    //   ScaffoldMessenger.of(context)
+                                    //       .showSnackBar(
+                                    //     SnackBar(
+                                    //       content:
+                                    //           Text("Connection au server..."),
+                                    //       duration: Duration(seconds: 2),
+                                    //       backgroundColor: Colors.green,
+                                    //     ),
+                                    //   );
+                                    // }
+                                  },
+                                ),
+                              ),
+                              SizedBox(
                                 height: 16,
                               ),
-                              buildContinueText(),
+                              // buildContinueText(),
                             ],
                           ),
                         ),
-
-                        //footer section. google, facebook button and sign up text here
+                        // footer section. google, facebook button and sign up text here
                         Expanded(
                           flex: 4,
                           child: Column(
@@ -227,7 +260,7 @@ class LoginScreen extends StatelessWidget {
             //email address textField
             Expanded(
               child: TextField(
-                controller: signInController.email,
+                controller: loginController.email,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.emailAddress,
@@ -286,8 +319,8 @@ class LoginScreen extends StatelessWidget {
 
             //password textField
             Expanded(
-              child: TextField(
-                controller: signInController.password,
+              child: TextFormField(
+                controller: loginController.password,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.visiblePassword,
@@ -309,6 +342,9 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.white70,
                     ),
                     border: InputBorder.none),
+                validator: (value) {
+                  if (value == null) return "L'email est obligatoire";
+                },
               ),
             ),
           ],
@@ -356,36 +392,36 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget signInButton(Size size) {
-    return InkWell(
-      onTap: () {
-        // Get.toNamed(Routes.LOGINOTP);
-        print(
-            "signUpButton a été clické email: ${singUpController.email.text} password: ${singUpController.password.text}");
-        if (_formkey.currentState!.validate()) {
-          SignInController.instance.loginUser(
-              singUpController.email.text.trim(),
-              singUpController.password.text.trim());
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        height: size.height / 13,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: const Color(0xFFF56B3F),
-        ),
-        child: Text(
-          "Se connecter",
-          style: GoogleFonts.inter(
-            fontSize: 16.0,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget signInButton(Size size) {
+  //   return InkWell(
+  //     onTap: () {
+  //       // Get.toNamed(Routes.LOGINOTP);
+  //       print(
+  //           "signUpButton a été clické email: ${singUpController.email.text} password: ${singUpController.password.text}");
+  //       if (_formkey.currentState!.validate()) {
+  //         SignInController.instance.loginUser(
+  //             singUpController.email.text.trim(),
+  //             singUpController.password.text.trim());
+  //       }
+  //     },
+  //     child: Container(
+  //       alignment: Alignment.center,
+  //       height: size.height / 13,
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         color: const Color(0xFFF56B3F),
+  //       ),
+  //       child: Text(
+  //         "Se connecter",
+  //         style: GoogleFonts.inter(
+  //           fontSize: 16.0,
+  //           color: Colors.white,
+  //           fontWeight: FontWeight.w600,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget buildContinueText() {
     return Row(
@@ -525,4 +561,10 @@ class LoginScreen extends StatelessWidget {
       ),
     ]);
   }
+
+  // void updateVariableAfterDelay() {
+  //   Future.delayed(Duration(seconds: 2), () {
+  //     loginController.isEmptyAll.value = false;
+  //   });
+  // }
 }

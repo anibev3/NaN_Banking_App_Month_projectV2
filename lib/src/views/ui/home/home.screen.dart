@@ -3,7 +3,8 @@ import 'package:nan_banking_app_mai_project/src/views/ui/home/components/actionI
 import 'package:nan_banking_app_mai_project/src/views/ui/home/components/afterHistorique.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/home/components/recentTransaction.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/home/components/soldeSection.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/home/components/statMois.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/home/components/stat_credit_mois.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/home/components/stat_debit_mois.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/home/models/transaction_model.dart';
 
 List<TransactionModel> recentTransactions = [
@@ -76,14 +77,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: EdgeInsets.only(left: 30, right: 30),
                       child: Divider(),
                     ),
-                    const StatMois(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        StatCreditMois(),
+                        StatDebitMois(),
+                      ],
+                    ),
                     const AfterHistorique(),
                     const SizedBox(
                       height: 5,
                     ),
-                    ...recentTransactions
-                        .map((e) => RecentTransaction(e: e))
-                        .toList(),
+                    RecentTransaction()
+                    // ...recentTransactions
+                    //     .map((e) => RecentTransaction())
+                    //     .toList(),
                   ],
                 ),
               ),

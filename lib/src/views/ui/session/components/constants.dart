@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/components/dropButtonBnk.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/components/radioHF.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/components/dropButtonBnk.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/components/radioHF.dart';
 
 Color kBackgroundColor = Colors.white;
 Color kPrimaryColor = Colors.blue;

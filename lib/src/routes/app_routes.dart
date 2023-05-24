@@ -40,4 +40,5 @@ abstract class Routes {
   // ignore: constant_identifier_names
   static const PAIEMENTSUCCESS = '/paiementsuccess';
   static const PAIEMENTFAILED = '/paiementfailed';
+  static const DETAILTRANSACTION = '/detail';
 }

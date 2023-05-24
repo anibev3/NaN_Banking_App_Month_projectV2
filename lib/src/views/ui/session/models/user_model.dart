@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class UserTempon {
   final String uid;
   final String email;
-  final String contact;
+  final String? contact;
 
-  UserTempon({required this.uid, required this.email, required this.contact});
+  UserTempon({required this.uid, required this.email, this.contact});
 }

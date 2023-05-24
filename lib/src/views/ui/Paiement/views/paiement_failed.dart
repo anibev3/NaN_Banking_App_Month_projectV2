@@ -98,7 +98,7 @@ class PaiementFailed extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
                       Get.toNamed(Routes.HOME);
                     },
@@ -140,6 +140,29 @@ class PaiementFailed extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.HOME);
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 55,
+                  decoration: BoxDecoration(
+                      color: Cst.kprimary3Color,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Center(
+                    child: Text(
+                      "Accueil",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        // fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
