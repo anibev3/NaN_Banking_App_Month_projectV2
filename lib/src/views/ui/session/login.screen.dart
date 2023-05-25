@@ -6,7 +6,6 @@ import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
 import 'package:nan_banking_app_mai_project/src/utils/helpers/signIn_button.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/login_controller.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/signIn_controlle.dart';
 import 'package:nan_banking_app_mai_project/src/views/widgets/back_button_widget.dart';
 
 class LoginScreen extends StatelessWidget {

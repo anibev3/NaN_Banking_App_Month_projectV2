@@ -96,7 +96,7 @@ class PaiementSuccess extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 200,
+                  height: 170,
                 ),
                 GestureDetector(
                   onTap: () {

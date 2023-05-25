@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nan_banking_app_mai_project">
    <application
-        android:label="nan_banking_app_mai_project"
+        android:label="Nawari Bank"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

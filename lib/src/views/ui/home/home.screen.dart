@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/home/components/actionItemSection.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/home/components/afterHistorique.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/home/components/recentTransaction.dart';
@@ -84,7 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         StatDebitMois(),
                       ],
                     ),
-                    const AfterHistorique(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: const AfterHistorique(),
+                    ),
                     const SizedBox(
                       height: 5,
                     ),

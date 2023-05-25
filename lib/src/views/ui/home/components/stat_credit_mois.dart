@@ -82,7 +82,7 @@ class _StatCreditMoisState extends State<StatCreditMois> {
                 Padding(
                   padding: const EdgeInsets.only(right: 4.45),
                   child: Container(
-                    width: 162,
+                    width: 155,
                     height: 65,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -102,7 +102,10 @@ class _StatCreditMoisState extends State<StatCreditMois> {
                       children: [
                         Text(
                           "Total recu",
-                          style: TextStyle(fontSize: 15, color: Colors.green),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.green,
+                          ),
                         ),
                         (!snapshot.hasData || snapshot.data!.docs.isEmpty)
                             ? Column(
@@ -126,7 +129,7 @@ class _StatCreditMoisState extends State<StatCreditMois> {
                             : Text(
                                 "$totalMontant Fcfa",
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.green),
                               )

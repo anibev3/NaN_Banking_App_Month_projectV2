@@ -7,8 +7,10 @@ import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/login_controller.dart';
 
 class SoldeSection extends StatefulWidget {
+  // final String? userID;
   const SoldeSection({
     super.key,
+    // required this.userID
   });
 
   @override
@@ -25,8 +27,9 @@ class _SoldeSectionState extends State<SoldeSection> {
   void initState() {
     super.initState();
     print(
-        '<...........On est dans le initState du makeTransaction...........>');
-    showUserValue();
+        '<...........On est dans le initState du makeTransaction  ...........>');
+    // showUserValue();
+    userConnectedId = box.read('userNawariID');
   }
 
   void showUserValue() async {
@@ -41,10 +44,8 @@ class _SoldeSectionState extends State<SoldeSection> {
 
   @override
   Widget build(BuildContext context) {
-    String usedId = box.read('userNawariID');
-
     return StreamBuilder<DocumentSnapshot>(
-      stream: readCustomer(usedId.toString()),
+      stream: readCustomer(userConnectedId),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -67,6 +68,15 @@ class _SoldeSectionState extends State<SoldeSection> {
         final data = snapshot.data!.data() as Map<String, dynamic>;
         print("<.............FireStore Data..................>");
         print(data);
+        box.write('userNawariID', data!['id']);
+        box.write('userNawariNOM', data!['nom']);
+        box.write('userNawariPRENOM', data!['prenoms']);
+        box.write('userNawariSEXE', data!['sexe']);
+        box.write('userNawariPROFESSION', data!['profession']);
+        box.write('userNawariCONTACT', data!['numTel']);
+        box.write('userNawariPIECE', data!['numPce']);
+        box.write('userNawariID2', data!['signUpID']);
+        box.write('userNawariSOLD', data!['solde']);
         print("<.............................................>");
 
         final nom = data['nom'];

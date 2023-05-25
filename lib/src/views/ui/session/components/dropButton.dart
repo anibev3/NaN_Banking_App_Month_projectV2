@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/components/constants.dart';
 
 /// Flutter code sample for [DropdownButton].
@@ -25,17 +26,27 @@ class _DropdownButtonCptState extends State<DropdownButtonCpt> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // margin:  EdgeInsets.symmetric(horizontal: 5),
       padding: const EdgeInsets.symmetric(horizontal: 5),
+      // decoration: BoxDecoration(
+      //   border: Border.all(color: Colors.),
+      //   borderRadius: BorderRadius.circular(5),
+
+      // ),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(10.0),
+        color: const Color(0xFF4DA1B0),
       ),
       child: DropdownButton<String>(
+        focusColor: Colors.white70,
+        dropdownColor: Cst.kPrimary2Color,
         value: dropdownValue,
         // icon: const Icon(Icons.arrow_downward),
         // elevation: 16,
         underline: null,
-        style: const TextStyle(color: Colors.blue),
+        iconEnabledColor: Colors.white70,
+
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
         onChanged: (String? value) {
           // This is called when the user selects an item.
           drpValue = value!;
