@@ -3,13 +3,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
+import 'package:nan_banking_app_mai_project/src/utils/helpers/signIn_button.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/register_controller.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/signUp_controller.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
+  RegisterController registerController = Get.put(RegisterController());
 
-  final singUpController = Get.put(SignUpController());
+  // final registerController = Get.put(SignUpController());
   final _formkey = GlobalKey<FormState>();
 
   @override
@@ -189,7 +192,7 @@ class RegisterScreen extends StatelessWidget {
             //email address textField
             Expanded(
               child: TextField(
-                controller: singUpController.email,
+                controller: registerController.email,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.emailAddress,
@@ -291,7 +294,7 @@ class RegisterScreen extends StatelessWidget {
             //password textField
             Expanded(
               child: TextField(
-                controller: singUpController.password,
+                controller: registerController.password,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.visiblePassword,
@@ -357,11 +360,11 @@ class RegisterScreen extends StatelessWidget {
             //password textField
             Expanded(
               child: TextField(
-                controller: singUpController.contact,
+                controller: registerController.contact,
                 maxLines: 1,
                 cursorColor: Colors.white70,
-                keyboardType: TextInputType.phone,
-                obscureText: true,
+                keyboardType: TextInputType.number,
+                // obscureText: true,
                 style: GoogleFonts.inter(
                   fontSize: 14.0,
                   color: Colors.white,
@@ -384,36 +387,65 @@ class RegisterScreen extends StatelessWidget {
   }
 
   Widget signUpButton(Size size) {
-    return InkWell(
-      onTap: () {
-        // Get.toNamed(Routes.LOGINOTP);
-        print(
-            "signUpButton a été clické email: ${singUpController.email.text} password: ${singUpController.password.text}");
-        if (_formkey.currentState!.validate()) {
-          SignUpController.instance.registerUser(
-            singUpController.email.text.trim(),
-            singUpController.password.text.trim(),
-            singUpController.contact.text.trim(),
+    return Obx(
+      () => SignInButton(
+        isGestureEnabled: registerController.isGestureEnabled.value,
+        isloading: registerController.issubmitLoading.value,
+        text: "Se connecter",
+        size: size,
+        onTap: () {
+          registerController.createUserWithEmailAndPassword(
+            registerController.email.text.trim(),
+            registerController.password.text.trim(),
+            registerController.contact.text.trim(),
           );
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        height: size.height / 13,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: const Color(0xFFF56B3F),
-        ),
-        child: Text(
-          "S'inscrire",
-          style: GoogleFonts.inter(
-            fontSize: 16.0,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+
+          // else if (loginController.isOk.value ==
+          //     true) {
+          //   ScaffoldMessenger.of(context)
+          //       .showSnackBar(
+          //     SnackBar(
+          //       content:
+          //           Text("Connection au server..."),
+          //       duration: Duration(seconds: 2),
+          //       backgroundColor: Colors.green,
+          //     ),
+          //   );
+          // }
+        },
       ),
     );
+
+    // InkWell(
+    //   onTap: () {
+    //     // Get.toNamed(Routes.LOGINOTP);
+    //     print(
+    //         "signUpButton a été clické email: ${registerController.email.text} password: ${registerController.password.text}");
+    //     if (_formkey.currentState!.validate()) {
+    //       SignUpController.instance.registerUser(
+    //         registerController.email.text.trim(),
+    //         registerController.password.text.trim(),
+    //         registerController.contact.text.trim(),
+    //       );
+    //     }
+    //   },
+    //   child: Container(
+    //     alignment: Alignment.center,
+    //     height: size.height / 13,
+    //     decoration: BoxDecoration(
+    //       borderRadius: BorderRadius.circular(10.0),
+    //       color: const Color(0xFFF56B3F),
+    //     ),
+    //     child: Text(
+    //       "S'inscrire",
+    //       style: GoogleFonts.inter(
+    //         fontSize: 16.0,
+    //         color: Colors.white,
+    //         fontWeight: FontWeight.w600,
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   Widget buildContinueText() {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
 import 'package:nan_banking_app_mai_project/src/utils/helpers/custumer_controller.dart';
 
 class Controller extends GetxController {
@@ -22,10 +23,13 @@ class Controller extends GetxController {
         DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
         Map<String, dynamic>? data =
             documentSnapshot.data() as Map<String, dynamic>?;
+        box.write('customerData', data); // Stocker les données
+
+        // await box.write('userNawariID', data!['id']);
+        Get.toNamed(Routes.HOME);
+        // Get.toNamed(Routes.HOME, arguments: {'variable': data['id']});
 
         if (data != null) {
-          // Accédez aux données individuelles du document
-          // String? documentId = documentSnapshot.id;
           String id = data['id'];
           String signUpID = data['signUpID'];
           String nom = data['nom'];
@@ -44,7 +48,7 @@ class Controller extends GetxController {
           String gestionnaire = data['gestionnaire'];
           double solde = data['solde'];
           int nbTransac = data['nbTransac'];
-          await box.write('userNawariID', id);
+          // await box.write('userNawariID', id);
 
           // Faites quelque chose avec les données récupérées
           print('<.....................Les données du customers: $data. ...');

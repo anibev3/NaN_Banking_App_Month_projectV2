@@ -59,12 +59,12 @@ List<RiveAsset> sideMenus = [
     stateMachineName: "SEARCH_Interactivity",
     title: "Recherche",
   ),
-  RiveAsset(
-    "assets/RiveAssets/icons.riv",
-    artboard: "LIKE/STAR",
-    stateMachineName: "STAR_Interactivity",
-    title: "Favoris",
-  ),
+  // RiveAsset(
+  //   "assets/RiveAssets/icons.riv",
+  //   artboard: "LIKE/STAR",
+  //   stateMachineName: "STAR_Interactivity",
+  //   title: "Favoris",
+  // ),
   RiveAsset(
     "assets/RiveAssets/icons.riv",
     artboard: "CHAT",

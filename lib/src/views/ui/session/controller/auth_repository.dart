@@ -15,6 +15,8 @@ import 'package:nan_banking_app_mai_project/src/views/widgets/lib/entry_point.da
 
 class AuthRepository extends GetxController {
   static AuthRepository get instance => Get.find();
+  var issubmitLoading = false.obs;
+  var isGestureEnabled = false.obs;
 
   //Variables
   final _auth = FirebaseAuth.instance;
@@ -112,6 +114,10 @@ class AuthRepository extends GetxController {
     print("<___________ LogOut a ete cliqué ___________>");
     await box.erase();
     Get.toNamed(Routes.INITIAL);
+    Future.delayed(const Duration(seconds: 3), () {
+      issubmitLoading(false);
+      isGestureEnabled(false);
+    });
   }
 
   Future<void> fetchDocumentBySignUpID(String signUpID) async {

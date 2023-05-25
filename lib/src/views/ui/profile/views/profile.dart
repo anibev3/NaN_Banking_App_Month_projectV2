@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/auth_repository.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/login_controller.dart';
+import 'package:nan_banking_app_mai_project/src/views/widgets/lib/utils/logOut_button.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);
 
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
   LoginController loginController = Get.put(LoginController());
 
+  // AuthRepository authController = Get.put(AuthRepository());
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -36,7 +45,7 @@ class Profile extends StatelessWidget {
               const SizedBox(
                 height: 45,
               ),
-              const ProfilHeader(),
+              ProfilHeader(),
               const SizedBox(
                 height: 45,
               ),
@@ -173,13 +182,44 @@ class Profile extends StatelessWidget {
   }
 }
 
-class ProfilHeader extends StatelessWidget {
+class ProfilHeader extends StatefulWidget {
   const ProfilHeader({
     super.key,
   });
 
   @override
+  State<ProfilHeader> createState() => _ProfilHeaderState();
+}
+
+class _ProfilHeaderState extends State<ProfilHeader> {
+  LoginController loginController = Get.put(LoginController());
+  var ddecoCall = false.obs;
+  GetStorage box = GetStorage();
+
+  String userConnectedID = "";
+  String userConnectedNom = "";
+  String userConnectedProfession = "";
+  String userConnectedEmail = "";
+  String userConnectedPrenoms = "";
+  String userConnectedContact = "";
+
+  @override
+  void initState() {
+    super.initState();
+    userConnectedID = box.read('userNawariID');
+    userConnectedNom = box.read('userNawariNOM');
+    userConnectedPrenoms = box.read('userNawariPRENOM');
+    userConnectedProfession = box.read('userNawariPROFESSION');
+    userConnectedEmail = box.read('userNawariEMAIL');
+    userConnectedContact = box.read('userNawariCONTACT');
+    // print(
+    //     '<...........On est dans le initState du makeTransaction...........>');
+    // showUserValue();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Row(
       children: [
         Container(
@@ -203,16 +243,16 @@ class ProfilHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text(
-              "Vianney Anibé",
+            Text(
+              "$userConnectedPrenoms $userConnectedNom",
               style: TextStyle(
                 fontSize: 27,
                 fontWeight: FontWeight.bold,
               ),
             ),
             // Divider(),
-            const Text(
-              "Tel: +225 01 40990499",
+            Text(
+              "Tel: +225 $userConnectedContact",
               style: TextStyle(
                 color: Colors.grey,
 
@@ -220,8 +260,8 @@ class ProfilHeader extends StatelessWidget {
                 // fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-              "Email: anibev3@gmail.com",
+            Text(
+              "Email: $userConnectedEmail",
               style: TextStyle(
                 fontSize: 13,
                 color: Colors.grey,
@@ -230,7 +270,7 @@ class ProfilHeader extends StatelessWidget {
               ),
             ),
             Text(
-              "N°cpt: 35436dfb3",
+              "N°cpt: $userConnectedID",
               style: TextStyle(
                 fontSize: 13,
                 // fontWeight: FontWeight.bold,
@@ -240,36 +280,66 @@ class ProfilHeader extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            InkWell(
-              onTap: () {
-                LoginController.instance.logout();
-              },
-              child: Container(
-                width: 150,
-                height: 35,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.red,
-                  // image: DecorationImage(
-                  //   image: AssetImage(
-                  //     "assets/img/profil.jpeg",
-                  //   ),
-                  //   fit: BoxFit.cover,
-                  // ),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Se déconnecter",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+            Obx(
+              () => LogOutButton(
+                isGestureEnabled: loginController.logOutIndicator.value,
+                isloading: loginController.logOutIndicator.value,
+                text: "Se déconnecter",
+                size: size,
+                onTap: () {
+                  loginController.logOut_();
+                },
               ),
             ),
+            Obx(() {
+              if (loginController.logOutIndicator.value == true) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: LogOutButton(
+                    isGestureEnabled: false,
+                    isloading: false,
+                    text: "Annuler",
+                    size: size,
+                    onTap: () {
+                      loginController.annulerLogOut_();
+                    },
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            })
+
+            // InkWell(
+            //   onTap: () {
+            //     LoginController.instance.logout();
+            //   },
+            //   child: Container(
+            //     width: 150,
+            //     height: 35,
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(10),
+            //       color: Colors.red,
+            //       // image: DecorationImage(
+            //       //   image: AssetImage(
+            //       //     "assets/img/profil.jpeg",
+            //       //   ),
+            //       //   fit: BoxFit.cover,
+            //       // ),
+            //     ),
+            //     child: const Center(
+            //       child: Text(
+            //         "Se déconnecter",
+            //         style: TextStyle(
+            //             color: Colors.white,
+            //             fontSize: 15,
+            //             fontWeight: FontWeight.bold),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
-        )
+        ),
       ],
     );
   }

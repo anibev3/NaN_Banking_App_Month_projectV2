@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 import 'package:nan_banking_app_mai_project/src/views/widgets/lib/models/rive_asset.dart';
@@ -19,6 +20,38 @@ class SideMenu extends StatefulWidget {
 
 class _SideMenuState extends State<SideMenu> {
   RiveAsset selectedMenu = sideMenus.first;
+
+  GetStorage box = GetStorage();
+
+  String userConnectedID = "";
+  String userConnectedNom = "";
+  String userConnectedProfession = "";
+  String userConnectedPrenoms = "";
+
+  @override
+  void initState() {
+    super.initState();
+    userConnectedID = box.read('userNawariID');
+    userConnectedNom = box.read('userNawariNOM');
+    userConnectedPrenoms = box.read('userNawariPRENOM');
+    userConnectedProfession = box.read('userNawariPROFESSION');
+    // print(
+    //     '<...........On est dans le initState du makeTransaction...........>');
+    // showUserValue();
+  }
+
+  // void showUserValue() async {
+  //   // UserTempon? user = firebaseUser.value;
+  //   userConnectedNom = await box.read('userNawariNOM');
+  //   userConnectedProfession = await box.read('userNawariPROFESSION');
+
+  //   if (userConnectedNom != null) {
+  //     print('Utilisateur : ${userConnectedNom}');
+  //   } else {
+  //     print('Aucun utilisateur connecté');
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -43,10 +76,10 @@ class _SideMenuState extends State<SideMenu> {
                     // color: Cst.kPrimary2Color,
                     ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: const InfoCard(
-                    name: "Vianney Anibe",
-                    profession: "Devéloppeur Mobile Flutter",
+                  padding: EdgeInsets.only(top: 30),
+                  child: InfoCard(
+                    name: "$userConnectedPrenoms $userConnectedNom",
+                    profession: userConnectedProfession,
                   ),
                 ),
               ),
@@ -90,13 +123,13 @@ class _SideMenuState extends State<SideMenu> {
                     print(
                         "<___________________ ${size.height * 0.006} _____________________>");
                     if (menu.title == "Service client") {
-                      Get.toNamed(Routes.MESSAGERIE);
+                      Get.toNamed(Routes.HOME);
                     } else if (menu.title == "Accueil") {
                       Get.toNamed(Routes.HOME);
                     } else if (menu.title == "Recherche") {
-                      Get.toNamed(Routes.TRANSFERT);
+                      Get.toNamed(Routes.HOME);
                     } else if (menu.title == "Favoris") {
-                      Get.toNamed(Routes.EPARGNE);
+                      Get.toNamed(Routes.HOME);
                     }
                   },
                   isActive: selectedMenu == menu,
@@ -135,9 +168,9 @@ class _SideMenuState extends State<SideMenu> {
                     print(
                         "<___________________ ${menu.title} _____________________>");
                     if (menu.title == "Historique") {
-                      Get.toNamed(Routes.STATISTIC);
+                      Get.toNamed(Routes.HOME);
                     } else if (menu.title == "Notifications") {
-                      Get.toNamed(Routes.PROFILE);
+                      Get.toNamed(Routes.HOME);
                     }
                   },
                   isActive: selectedMenu == menu,
@@ -145,7 +178,7 @@ class _SideMenuState extends State<SideMenu> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 40, top: 10, bottom: 6, right: 40),
+                    left: 40, top: 15, bottom: 6, right: 40),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -195,7 +228,7 @@ class _SideMenuState extends State<SideMenu> {
                 ),
               ),
               const SizedBox(
-                height: 5,
+                height: 10,
               ),
 
               Expanded(
@@ -234,8 +267,8 @@ class _SideMenuState extends State<SideMenu> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text(
-                        "Code de parrainage: ANI225",
+                      Text(
+                        "Code de parrainage: $userConnectedID",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 11,
@@ -248,7 +281,7 @@ class _SideMenuState extends State<SideMenu> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width / 1.5,
-                        height: 35,
+                        height: 30,
                         decoration: BoxDecoration(
                             color: Cst.kprimary3Color,
                             borderRadius: BorderRadius.circular(50),
@@ -262,7 +295,7 @@ class _SideMenuState extends State<SideMenu> {
                             child: Text(
                           "Inviter un ami",
                           style: TextStyle(
-                            fontSize: 13,
+                            fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),

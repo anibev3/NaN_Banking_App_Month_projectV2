@@ -79,59 +79,63 @@ class _StatDebitMoisState extends State<StatDebitMois> {
             height: 66,
             child: Column(
               children: [
-                // Padding(
-
-                Container(
-                  width: 162,
-                  height: 65,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    // color: Cst.kPrimary2Color,
-                    // color: Colors.red,
-                    border: Border.all(
-                      color: Colors.red,
-                      width: 1.0,
-                      style: BorderStyle.solid,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Total envoyé",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.red,
-                        ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4.45),
+                  child: Container(
+                    width: 155,
+                    height: 65,
+                    decoration: BoxDecoration(
+                      //
+                      // color: Cst.kPrimary2Color,
+                      // color: Colors.red,
+                      border: Border.all(
+                        color: Colors.red,
+                        width: 1.0,
+                        style: BorderStyle.solid,
                       ),
-                      (!snapshot.hasData || snapshot.data!.docs.isEmpty)
-                          ? Column(
-                              children: [
-                                Text(
-                                  "000.00 Fcfa",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red),
-                                ),
-                                Text(
-                                  "Aucune transaction éffectué",
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red),
-                                ),
-                              ],
-                            )
-                          : Text(
-                              "$totalMontant Fcfa",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red),
-                            )
-                    ],
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Total envoyé",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.red,
+                          ),
+                        ),
+                        (!snapshot.hasData || snapshot.data!.docs.isEmpty)
+                            ? Column(
+                                children: [
+                                  Text(
+                                    "000.00 Fcfa",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red),
+                                  ),
+                                  Text(
+                                    "Aucune transaction éffectué",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red),
+                                  ),
+                                ],
+                              )
+                            : Text(
+                                "$totalMontant Fcfa",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red),
+                              )
+                      ],
+                    ),
                   ),
                 ),
               ],

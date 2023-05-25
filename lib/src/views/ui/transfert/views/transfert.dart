@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
@@ -17,6 +18,7 @@ import 'package:nan_banking_app_mai_project/src/views/ui/session/components/radi
 import 'package:nan_banking_app_mai_project/src/views/ui/session/models/user_model.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/transfert/models/transaction_Prototype.dart';
 import 'package:nan_banking_app_mai_project/src/views/widgets/back_button_widget.dart';
+import 'package:nan_banking_app_mai_project/src/views/widgets/lib/utils/sendMoneyButtun.dart';
 
 class Transfert extends StatefulWidget {
   const Transfert({super.key});
@@ -162,7 +164,7 @@ class _Transfert extends State<Transfert> {
                           children: [
                             TextFormField(
                               cursorColor: Colors.grey,
-
+                              keyboardType: TextInputType.number,
                               controller: contrMontant,
                               // The validator receives the text that the user has entered.
                               textCapitalization: TextCapitalization.characters,
@@ -509,191 +511,250 @@ class _Transfert extends State<Transfert> {
                             ),
                           ),
                         ),
-                        BlackbuttonWidget(
-                            isloading: showSpinner,
-                            text: "Lancer la transaction",
-                            onTap: () {
-                              print('<_______ $userConnectedId ________>');
+                        SizedBox(
+                          height: 40,
+                          width: 200,
+                          child: SignUpButton(
+                              isGestureEnabled: showSpinner,
+                              size: size,
+                              isloading: showSpinner,
+                              text: "Lancer la transaction",
+                              onTap: () {
+                                print('<_______ $userConnectedId ________>');
+                                if (_formKey.currentState!.validate()) {
+                                  // this is the firebase instance calling | To have the differents response for the following cases..
+                                  startLoading();
 
-                              if (_formKey.currentState!.validate()) {
-                                // this is the firebase instance calling | To have the differents response for the following cases..
-                                startLoading();
+                                  getValueTrans(
+                                    idTrans: "Customers",
+                                    keyDocSender:
+                                        (contrNumCliDeb.text.isNotEmpty)
+                                            ? contrNumCliDeb.text
+                                            : userConnectedId,
+                                    keyDocReceiv: (drpValueBank == "NAWARI")
+                                        ? contrNumCliCred.text
+                                        : userConnectedId,
+                                  ).then((value) {
+                                    if (value[0] != -1 && value[1] != -1) {
+                                      print("value 1 :${value[0]}");
+                                      print("value 1 :${value[1]}");
 
-                                getValueTrans(
-                                  idTrans: "Customers",
-                                  keyDocSender: (contrNumCliDeb.text.isNotEmpty)
-                                      ? contrNumCliDeb.text
-                                      : userConnectedId,
-                                  keyDocReceiv: (drpValueBank == "NAWARI")
-                                      ? contrNumCliCred.text
-                                      : userConnectedId,
-                                ).then((value) {
-                                  if (value[0] != -1 && value[1] != -1) {
-                                    print("value 1 :${value[0]}");
-                                    print("value 1 :${value[1]}");
+                                      //Instructions transfert solde débiteur
+                                      if (double.parse(contrMontant.text) >
+                                          ((value[0]["solde"]) ?? 0)) {
+                                        print(
+                                            "value == :${((value[0]["solde"]) ?? 0)}");
+                                        //Snackbar pour le solde insuffisant
+                                        // ScaffoldMessenger.of(context)
+                                        //   ..hideCurrentSnackBar()
+                                        //   ..showSnackBar(mySnackBar(
+                                        //       "Solde insuffisant!",
+                                        //       "Veuillez vérifier le solde de votre compte ",
+                                        //       ContentType.failure));
+                                        // stopLoading();
+                                        Flushbar(
+                                          backgroundColor:
+                                              Color.fromARGB(255, 255, 217, 0),
+                                          title: "Solde insuffisant!",
+                                          margin: EdgeInsets.only(top: 50),
+                                          message:
+                                              "Veuillez vérifier le solde de votre compte",
+                                          duration: Duration(seconds: 4),
+                                          flushbarPosition:
+                                              FlushbarPosition.TOP,
+                                        ).show(Get.context!);
+                                      } else {
+                                        stopLoading();
+                                        //Instructions pour le transfert possible
+                                        var receivName = (drpValueBank ==
+                                                "NAWARI")
+                                            ? "${value[1]["nom"] ?? ""} ${value[1]["prenoms"] ?? ""}"
+                                            : contrNomClientCred.text;
+                                        myAlertDialog(
+                                                //  "Vous allez effectué un ${dropdownValueTrans.toLowerCase()} de ${contrMontant.text} XOF \nde ${value[0]["nom"]} ${value[0]["prenoms"] ?? ""},\nvers le client $receivName de la banque $drpValueBank \nVoulez-vous confirmer ?",
+                                                "Vous allez effectué un ${dropdownValueTrans.toLowerCase()} de ${contrMontant.text} XOF au client $receivName",
+                                                context)
+                                            .then((vx) {
+                                          if (vx == "CONFIRMER") {
+                                            print("reponse:$vx");
+                                            print(
+                                                "Solde du débiteur: ${value[0]["solde"]}");
+                                            startLoading();
+                                            if (selectDateEFF
+                                                .isBefore(DateTime.now())) {
+                                              final TransactionPrototype
+                                                  trans = TransactionPrototype(
+                                                      ref: "",
+                                                      numCliCred:
+                                                          contrNumCliCred.text,
+                                                      nomClientCred:
+                                                          (contrNomClientCred
+                                                                  .text.isEmpty)
+                                                              ? contrNumCliCred
+                                                                  .text
+                                                              : contrNomClientCred
+                                                                  .text,
+                                                      numCliDeb: (contrNumCliDeb
+                                                              .text.isEmpty)
+                                                          ? userConnectedId
+                                                          : contrNumCliDeb.text,
+                                                      banque: drpValueBank,
+                                                      dateTransac:
+                                                          DateTime.now(),
+                                                      dateEffect: selectDate,
+                                                      gestionnaire: "GEST001",
+                                                      montant: double.parse(
+                                                          contrMontant.text),
+                                                      typeOperat:
+                                                          dropdownValueTrans,
+                                                      guichet: "Guichet-00");
 
-                                    //Instructions transfert solde débiteur
-                                    if (double.parse(contrMontant.text) >
-                                        ((value[0]["solde"]) ?? 0)) {
-                                      print(
-                                          "value == :${((value[0]["solde"]) ?? 0)}");
-                                      //Snackbar pour le solde insuffisant
-                                      ScaffoldMessenger.of(context)
-                                        ..hideCurrentSnackBar()
-                                        ..showSnackBar(mySnackBar(
-                                            "Solde insuffisant!",
-                                            "Veuillez vérifier le solde de votre compte ",
-                                            ContentType.failure));
-                                      stopLoading();
-                                    } else {
-                                      stopLoading();
-                                      //Instructions pour le transfert possible
-                                      var receivName = (drpValueBank ==
-                                              "NAWARI")
-                                          ? "${value[1]["nom"] ?? ""} ${value[1]["prenoms"] ?? ""}"
-                                          : contrNomClientCred.text;
-                                      myAlertDialog(
-                                              //  "Vous allez effectué un ${dropdownValueTrans.toLowerCase()} de ${contrMontant.text} XOF \nde ${value[0]["nom"]} ${value[0]["prenoms"] ?? ""},\nvers le client $receivName de la banque $drpValueBank \nVoulez-vous confirmer ?",
-                                              "Vous allez effectué un ${dropdownValueTrans.toLowerCase()} de ${contrMontant.text} XOF au client $receivName",
-                                              context)
-                                          .then((vx) {
-                                        if (vx == "CONFIRMER") {
-                                          print("reponse:$vx");
-                                          print(
-                                              "Solde du débiteur: ${value[0]["solde"]}");
-                                          startLoading();
-                                          if (selectDateEFF
-                                              .isBefore(DateTime.now())) {
-                                            final TransactionPrototype trans =
-                                                TransactionPrototype(
-                                                    ref: "",
-                                                    numCliCred: contrNumCliCred
-                                                        .text,
-                                                    nomClientCred:
-                                                        (contrNomClientCred
-                                                                .text.isEmpty)
-                                                            ? contrNumCliCred
-                                                                .text
-                                                            : contrNomClientCred
-                                                                .text,
-                                                    numCliDeb: (contrNumCliDeb
-                                                            .text.isEmpty)
-                                                        ? userConnectedId
-                                                        : contrNumCliDeb.text,
-                                                    banque: drpValueBank,
-                                                    dateTransac: DateTime.now(),
-                                                    dateEffect: selectDate,
-                                                    gestionnaire: "GEST001",
-                                                    montant: double.parse(
-                                                        contrMontant.text),
-                                                    typeOperat:
-                                                        dropdownValueTrans,
-                                                    guichet: "Guichet-00");
+                                              creatTrans(
+                                                      transactionPrototype:
+                                                          trans)
+                                                  .then((nextIdd) {
+                                                transfert(
+                                                    value: value,
+                                                    idTransac: nextIdd);
+                                                contrNumCliCred.clear();
+                                                contrNomClientCred.clear();
+                                                contrNumCliDeb.clear();
+                                                contrBanque.clear();
+                                                contrMontant.clear();
+                                                // final docTransac = FirebaseFirestore.instance
+                                                //     .collection("Transactions")
+                                                //     .doc(nextId);
+                                                // ScaffoldMessenger.of(context)
+                                                //   ..hideCurrentSnackBar()
+                                                //   ..showSnackBar(mySnackBar(
+                                                //       "Succès",
+                                                //       "Votre transaction a été effectué avec succès",
+                                                //       ContentType.success));
 
-                                            creatTrans(
-                                                    transactionPrototype: trans)
-                                                .then((nextIdd) {
-                                              transfert(
-                                                  value: value,
-                                                  idTransac: nextIdd);
-                                              contrNumCliCred.clear();
-                                              contrNomClientCred.clear();
-                                              contrNumCliDeb.clear();
-                                              contrBanque.clear();
-                                              contrMontant.clear();
-                                              // final docTransac = FirebaseFirestore.instance
-                                              //     .collection("Transactions")
-                                              //     .doc(nextId);
-                                              // ScaffoldMessenger.of(context)
-                                              //   ..hideCurrentSnackBar()
-                                              //   ..showSnackBar(mySnackBar(
-                                              //       "Succès",
-                                              //       "Votre transaction a été effectué avec succès",
-                                              //       ContentType.success));
-                                              Get.toNamed(
-                                                  Routes.PAIEMENTSUCCESS);
-                                            });
-                                            stopLoading();
-                                          } else {
-                                            //Transfert ajournée
-                                            final TransactionPrototype trans =
-                                                TransactionPrototype(
-                                                    ref: "",
-                                                    numCliCred: contrNumCliCred
-                                                        .text,
-                                                    nomClientCred:
-                                                        (contrNomClientCred
-                                                                .text.isEmpty)
-                                                            ? contrNumCliCred
-                                                                .text
-                                                            : contrNomClientCred
-                                                                .text,
-                                                    numCliDeb: (contrNumCliDeb
-                                                            .text.isEmpty)
-                                                        ? userConnectedId
-                                                        : contrNumCliDeb.text,
-                                                    banque: drpValueBank,
-                                                    dateTransac: DateTime.now(),
-                                                    dateEffect: selectDate,
-                                                    gestionnaire: "GEST001",
-                                                    montant: double.parse(
-                                                        contrMontant.text),
-                                                    typeOperat:
-                                                        dropdownValueTrans,
-                                                    guichet: "Guichet-00",
-                                                    approved: false);
+                                                Get.toNamed(
+                                                    Routes.PAIEMENTSUCCESS);
+                                              });
+                                              stopLoading();
+                                            } else {
+                                              //Transfert ajournée
+                                              final TransactionPrototype
+                                                  trans = TransactionPrototype(
+                                                      ref: "",
+                                                      numCliCred:
+                                                          contrNumCliCred.text,
+                                                      nomClientCred:
+                                                          (contrNomClientCred
+                                                                  .text.isEmpty)
+                                                              ? contrNumCliCred
+                                                                  .text
+                                                              : contrNomClientCred
+                                                                  .text,
+                                                      numCliDeb: (contrNumCliDeb
+                                                              .text.isEmpty)
+                                                          ? userConnectedId
+                                                          : contrNumCliDeb.text,
+                                                      banque: drpValueBank,
+                                                      dateTransac:
+                                                          DateTime.now(),
+                                                      dateEffect: selectDate,
+                                                      gestionnaire: "GEST001",
+                                                      montant: double.parse(
+                                                          contrMontant.text),
+                                                      typeOperat:
+                                                          dropdownValueTrans,
+                                                      guichet: "Guichet-00",
+                                                      approved: false);
 
-                                            creatTrans(
-                                                    transactionPrototype: trans)
-                                                .then((nextIdd) {
-                                              creatTransComing(
-                                                  transactionPrototype: trans);
-                                              contrNumCliCred.clear();
-                                              contrNomClientCred.clear();
-                                              contrNumCliDeb.clear();
-                                              contrBanque.clear();
-                                              contrMontant.clear();
-                                              // final docTransac = FirebaseFirestore.instance
-                                              //     .collection("Transactions")
-                                              //     .doc(nextId);
-                                              ScaffoldMessenger.of(context)
-                                                ..hideCurrentSnackBar()
-                                                ..showSnackBar(mySnackBar(
-                                                    "Transaction ajournée !",
-                                                    "La tractions à été programmé avec succès pous le ${DateFormat.yMd('en_US').format(selectDateEFF)} ",
-                                                    ContentType.help));
-                                            });
-                                            stopLoading();
+                                              creatTrans(
+                                                      transactionPrototype:
+                                                          trans)
+                                                  .then((nextIdd) {
+                                                creatTransComing(
+                                                    transactionPrototype:
+                                                        trans);
+                                                contrNumCliCred.clear();
+                                                contrNomClientCred.clear();
+                                                contrNumCliDeb.clear();
+                                                contrBanque.clear();
+                                                contrMontant.clear();
+                                                // final docTransac = FirebaseFirestore.instance
+                                                //     .collection("Transactions")
+                                                //     .doc(nextId);
+                                                //   ScaffoldMessenger.of(context)
+                                                //     ..hideCurrentSnackBar()
+                                                //     ..showSnackBar(mySnackBar(
+                                                //         "Transaction ajournée !",
+                                                //         "La tractions à été programmé avec succès pous le ${DateFormat.yMd('en_US').format(selectDateEFF)} ",
+                                                //         ContentType.help));
+
+                                                Flushbar(
+                                                  backgroundColor: Colors.green,
+                                                  title:
+                                                      "Transaction ajournée !",
+                                                  margin:
+                                                      EdgeInsets.only(top: 50),
+                                                  message:
+                                                      "La tractions à été programmé avec succès pous le ${DateFormat.yMd('en_US').format(selectDateEFF)} ",
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  flushbarPosition:
+                                                      FlushbarPosition.TOP,
+                                                ).show(Get.context!);
+                                              });
+
+                                              stopLoading();
+                                            }
                                           }
-                                        }
-                                      });
+                                        });
 
-                                      //Instruction pour le numéro de compte
+                                        //Instruction pour le numéro de compte
+                                      }
                                     }
-                                  }
-                                  //Cas d'erreur des comptes.
-                                  else if (value[0] == -1 || value[1] == -1) {
-                                    if (value[0] == -1) {
-                                      ScaffoldMessenger.of(context)
-                                        ..hideCurrentSnackBar()
-                                        ..showSnackBar(mySnackBar(
-                                            "N°Client débité incorrecte!",
-                                            "le numero client débité: ${contrNumCliDeb.text} n'est pas un numéro client valide ",
-                                            ContentType.warning));
-                                      stopLoading();
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                        ..hideCurrentSnackBar()
-                                        ..showSnackBar(mySnackBar(
-                                            "N°Compte Crédité incorrect!",
-                                            "Vérifier que le numéro client à credité: ${contrNumCliCred.text} est bien un client NAWARI ",
-                                            ContentType.warning));
-                                      stopLoading();
+                                    //Cas d'erreur des comptes.
+                                    else if (value[0] == -1 || value[1] == -1) {
+                                      if (value[0] == -1) {
+                                        // ScaffoldMessenger.of(context)
+                                        //   ..hideCurrentSnackBar()
+                                        //   ..showSnackBar(mySnackBar(
+                                        //       "N°Client débité incorrecte!",
+                                        //       "le numero client débité: ${contrNumCliDeb.text} n'est pas un numéro client valide ",
+                                        //       ContentType.warning));
+                                        Flushbar(
+                                          backgroundColor: Colors.red,
+                                          title: "N°Client débité incorrecte!",
+                                          margin: EdgeInsets.only(top: 50),
+                                          message:
+                                              "le numero client débité: ${contrNumCliDeb.text} n'est pas un numéro client valide  ",
+                                          duration: Duration(seconds: 1),
+                                          flushbarPosition:
+                                              FlushbarPosition.TOP,
+                                        ).show(Get.context!);
+                                        stopLoading();
+                                      } else {
+                                        // ScaffoldMessenger.of(context)
+                                        //   ..hideCurrentSnackBar()
+                                        //   ..showSnackBar(mySnackBar(
+                                        //       "N°Compte Crédité incorrect!",
+                                        //       "Vérifier que le numéro client à credité: ${contrNumCliCred.text} est bien un client NAWARI ",
+                                        //       ContentType.warning));
+
+                                        Flushbar(
+                                          backgroundColor: Colors.red,
+                                          title: "N°Compte Crédité incorrect!",
+                                          margin: EdgeInsets.only(top: 50),
+                                          message:
+                                              "Vérifier que le numéro client à credité: ${contrNumCliCred.text} est bien un client NAWARI ",
+                                          duration: Duration(seconds: 1),
+                                          flushbarPosition:
+                                              FlushbarPosition.TOP,
+                                        ).show(Get.context!);
+                                        stopLoading();
+                                      }
                                     }
-                                  }
-                                });
-                              }
-                            }),
+                                  });
+                                }
+                              }),
+                        ),
                       ],
                     ),
                   ],
