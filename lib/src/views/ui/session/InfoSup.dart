@@ -7,17 +7,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:nan_banking_app_mai_project/src/routes/app_pages.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/components/constants.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/components/customers.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/components/dropButton.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/components/radioHF.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/components/constants.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/components/customers.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/components/dropButton.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/components/radioHF.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/models/user_model.dart';
 
 class InfoSupScreen extends StatelessWidget {
   final UserTempon user;
   late String uid;
   late String userEmail;
-  late String contact_;
+  late dynamic contact_;
   late TextEditingController? emailController;
 
   InfoSupScreen({super.key, required this.user}) {
@@ -586,35 +586,35 @@ class InfoSupScreen extends StatelessWidget {
                                       ),
 
                                       //email address textField
-                                      Expanded(
-                                        child: TextFormField(
-                                          controller: controllerSolde,
-                                          maxLines: 1,
-                                          cursorColor: Colors.white70,
-                                          keyboardType: TextInputType.phone,
-                                          style: GoogleFonts.inter(
-                                            fontSize: 14.0,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          decoration: InputDecoration(
-                                            hintText: "Solde",
-                                            hintStyle: GoogleFonts.inter(
-                                              fontSize: 14.0,
-                                              color: Colors.white70,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            border: InputBorder.none,
-                                          ),
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Champ obligatoire !';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
+                                      // Expanded(
+                                      //   child: TextFormField(
+                                      //     controller: controllerSolde,
+                                      //     maxLines: 1,
+                                      //     cursorColor: Colors.white70,
+                                      //     keyboardType: TextInputType.phone,
+                                      //     style: GoogleFonts.inter(
+                                      //       fontSize: 14.0,
+                                      //       color: Colors.white,
+                                      //       fontWeight: FontWeight.w500,
+                                      //     ),
+                                      //     decoration: InputDecoration(
+                                      //       hintText: "Solde",
+                                      //       hintStyle: GoogleFonts.inter(
+                                      //         fontSize: 14.0,
+                                      //         color: Colors.white70,
+                                      //         fontWeight: FontWeight.w500,
+                                      //       ),
+                                      //       border: InputBorder.none,
+                                      //     ),
+                                      //     validator: (value) {
+                                      //       if (value == null ||
+                                      //           value.isEmpty) {
+                                      //         return 'Champ obligatoire !';
+                                      //       }
+                                      //       return null;
+                                      //     },
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -722,7 +722,7 @@ class InfoSupScreen extends StatelessWidget {
       "profession": customer.profession,
       "sexe": customer.sexe,
       "solde": double.parse(customer.solde.toString()),
-
+      "freeze": false,
       "typeCpt": customer.typeCpt,
       "nbTransac": customer.nbTransac,
       "transactions": []

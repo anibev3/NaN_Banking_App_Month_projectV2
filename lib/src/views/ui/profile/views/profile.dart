@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nan_banking_app_mai_project/src/utils/themes/Constant.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/auth_repository.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/controller/login_controller.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class Profile extends StatelessWidget {
+  Profile({Key? key}) : super(key: key);
 
-  @override
-  State<Profile> createState() => _ProfileState();
-}
+  LoginController loginController = Get.put(LoginController());
 
-class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -243,7 +242,7 @@ class ProfilHeader extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                AuthRepository.instance.logout();
+                LoginController.instance.logout();
               },
               child: Container(
                 width: 150,

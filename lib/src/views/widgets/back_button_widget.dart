@@ -23,8 +23,8 @@ class BlackbuttonWidget extends StatelessWidget {
         onTap();
       },
       child: Container(
-          height: 50,
-          width: Get.width * 0.7,
+          height: 44,
+          width: Get.width * 0.6,
           decoration: GlobalCss.blackBox(Colors.black, rad: Cst.kMaxRaduis),
           child: Center(
             child: isloading

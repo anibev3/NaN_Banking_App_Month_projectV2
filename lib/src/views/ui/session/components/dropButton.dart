@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/components/constants.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/components/constants.dart';
 
 /// Flutter code sample for [DropdownButton].
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/Paiement/views/paiement_failed.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/Paiement/views/paiement_success.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/detail_transaction/views/detail_transaction.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/epargne/views/epargne.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/messagerie.dart';
 import 'package:nan_banking_app_mai_project/src/views/ui/parametre/views/parametre.dart';
@@ -102,7 +103,7 @@ class AppPages {
       name: Routes.MESSAGERIE,
       transition: Transition.noTransition,
       curve: Curves.easeInOut,
-      page: () => const Messagerie(),
+      page: () => Messagerie(),
     ),
     // ++
     // ++
@@ -115,7 +116,7 @@ class AppPages {
       name: Routes.PROFILE,
       transition: Transition.noTransition,
       curve: Curves.easeInOut,
-      page: () => const Profile(),
+      page: () => Profile(),
     ),
 
     // ++
@@ -171,7 +172,7 @@ class AppPages {
     // ++
     GetPage(
       name: Routes.PAIEMENTSUCCESS,
-      transition: Transition.noTransition,
+      transition: Transition.zoom,
       curve: Curves.easeInOut,
       page: () => const PaiementSuccess(),
     ),
@@ -180,6 +181,12 @@ class AppPages {
       transition: Transition.noTransition,
       curve: Curves.easeInOut,
       page: () => const PaiementFailed(),
+    ),
+    GetPage(
+      name: Routes.DETAILTRANSACTION,
+      transition: Transition.zoom,
+      curve: Curves.easeInOut,
+      page: () => DetailTransaction(),
     ),
   ];
 }

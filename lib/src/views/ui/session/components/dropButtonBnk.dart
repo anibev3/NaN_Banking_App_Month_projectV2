@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nan_banking_app_mai_project/src/views/ui/messagerie/views/components/constants.dart';
+import 'package:nan_banking_app_mai_project/src/views/ui/session/components/constants.dart';
 import 'package:provider/provider.dart';
 
 /// Flutter code sample for [DropdownButton].
@@ -14,13 +14,13 @@ const List<String> listBank = <String>[
   "VERSUS BANK"
 ];
 const Map<String, dynamic> listImages = {
-  "NAWARI": "images/nawari1.png",
-  "BANQUE ATLATIQUE": "images/bat.jpeg",
-  "BNI": "images/bni.png",
-  "BANQUE POPULAIRE": "images/bpop.jpeg",
-  "ECOBANK": "images/eco.jpg",
-  "NSIA BANQUE": "images/nsia.jpeg",
-  "VERSUS BANK": "images/versus.png",
+  "NAWARI": "assets/img/nawari1.png",
+  "BANQUE ATLATIQUE": "assets/img/bat.jpeg",
+  "BNI": "assets/img/bni.png",
+  "BANQUE POPULAIRE": "assets/img/bpop.jpeg",
+  "ECOBANK": "assets/img/eco.jpg",
+  "NSIA BANQUE": "assets/img/nsia.jpeg",
+  "VERSUS BANK": "assets/img/versus.png",
 };
 
 class DropdownButtonTypBnk extends StatefulWidget {
@@ -67,8 +67,8 @@ class _DropdownButtonTypBnkState extends State<DropdownButtonTypBnk> {
                 ),
                 leading: ClipRRect(
                   child: SizedBox(
-                      height: 40,
-                      width: 40,
+                      height: 37,
+                      width: 37,
                       child: Image.asset(listImages[value])),
                 ),
               ),
